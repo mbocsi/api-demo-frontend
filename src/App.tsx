@@ -7,20 +7,25 @@ import Listings from "./routes/listings";
 import Listing from "./routes/listings/[id]";
 import Layout from "./layout";
 import { ThemeProvider } from "./components/theme-provider";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="listings" element={<Listings />} />
-          <Route path="listings/:id" element={<Listing />} />
-          <Route path="*" element={<NoMatch />} />
-        </Route>
-      </Routes>
+      <QueryClientProvider client={queryClient}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="listings" element={<Listings />} />
+            <Route path="listings/:id" element={<Listing />} />
+            <Route path="*" element={<NoMatch />} />
+          </Route>
+        </Routes>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }
