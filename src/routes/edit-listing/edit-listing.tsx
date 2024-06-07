@@ -17,10 +17,6 @@ import { useQuery } from "@tanstack/react-query";
 import { ListingResponse } from "../listings/[id]/listing";
 
 const formSchema = z.object({
-  id: z.coerce
-    .number()
-    .int({ message: "ID must be an integer." })
-    .gte(1000, { message: "ID must be greater than 999." }),
   userId: z
     .string()
     .min(8, { message: "User ID must be at least 8 characters long." })
@@ -50,7 +46,6 @@ export default function EditListing() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: data ? data.listing.id : 1000,
       userId: data ? data.listing.userId : "",
       name: data ? data.listing.name : "",
       askingPrice: data ? data.listing.askingPrice : 0,
@@ -75,19 +70,6 @@ export default function EditListing() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="min-w-96 space-y-6"
         >
-          <FormField
-            control={form.control}
-            name="id"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel> ID </FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="userId"
@@ -127,7 +109,7 @@ export default function EditListing() {
               </FormItem>
             )}
           />
-          <Button type="submit">Create</Button>
+          <Button type="submit">Update</Button>
         </form>
       </Form>
     </main>

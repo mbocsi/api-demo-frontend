@@ -15,10 +15,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
-  id: z.coerce
-    .number()
-    .int({ message: "ID must be an integer." })
-    .gte(1000, { message: "ID must be greater than 999." }),
   userId: z
     .string()
     .min(8, { message: "User ID must be at least 8 characters long." })
@@ -38,7 +34,6 @@ export default function CreateListing() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: 1000,
       userId: "",
       name: "",
       askingPrice: 0,
@@ -63,19 +58,6 @@ export default function CreateListing() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="min-w-96 space-y-6"
         >
-          <FormField
-            control={form.control}
-            name="id"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel> ID </FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="userId"

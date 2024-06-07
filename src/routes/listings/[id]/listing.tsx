@@ -64,14 +64,20 @@ export default function ListingPage() {
           <h1 className="text-2xl">${data?.listing.askingPrice}</h1>
         </li>
       </ul>
-      <Link to={`/edit-listing/${id}`} className="w-full">
-        <Button variant="outline" className="w-full">
-          Edit
+      <div className="inline-flex space-x-6">
+        <Link to={`/edit-listing/${id}`} className="basis-48">
+          <Button variant="outline" className="w-full">
+            Edit
+          </Button>
+        </Link>
+        <Button
+          variant="destructive"
+          onClick={deleteListing}
+          className="basis-48"
+        >
+          Delete
         </Button>
-      </Link>
-      <Button variant="destructive" onClick={deleteListing}>
-        Delete
-      </Button>
+      </div>
     </main>
   );
 }
